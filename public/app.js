@@ -1,5 +1,8 @@
 'use strict';
 
+var e = nodeRequire('electron');
+console.log(e.app);
+
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
