@@ -9,6 +9,12 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', [function() {
+.controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
+
+    $scope.test = 'test';
+
+    $http.get('/api/machines').then(function(data) {
+        $scope.machines = data.data;
+    });
 
 }]);
