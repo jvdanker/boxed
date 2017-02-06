@@ -1,10 +1,10 @@
-#!/usr/bin/env node
+// server.js
 
 /**
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('./app');
 var debug = require('debug')('boxed:server');
 var http = require('http');
 

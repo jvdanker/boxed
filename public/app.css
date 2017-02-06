@@ -23,3 +23,8 @@
   content: "|";
   padding-right: 0.3em;
 }
+
+body {
+    background: #002b36;
+    color: white;
+}
