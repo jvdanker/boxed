@@ -1,12 +1,18 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <ul>
-                <li ng-repeat="(key, value) in machines">
-                    <span>{{value.name}}</span>
-                    <span>{{value.running}}</span>
-                </li>
-            </ul>
-        </div>
+<div id="container">
+    <div class="content configure-content">
+        <ul class="table-view">
+            <li class="table-view-cell table-view-divider">Processes</li>
+            <li class="table-view-cell media" ng-repeat="(key, value) in machines">
+                <a href="/detail/{ {name}}" class="navigate-right">
+                    {{value.name}}
+                    <span class="badge badge-positive">Running</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="bar bar-standard bar-footer">
+        <button class="btn pull-right" on-click="quit">
+            Quit
+        </button>
     </div>
 </div>
