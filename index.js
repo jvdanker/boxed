@@ -18,29 +18,31 @@ const mb = menubar({
 let mainWindow;
 
 function createWindow () {
-  // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         backgroundColor: '#002b36'
     });
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'public/test.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'public/test.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
 
-  mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
-  mainWindow.on('closed', function () {
-    mainWindow = null
-  });
+    mainWindow.on('closed', function () {
+        mainWindow = null
+    });
 }
 
 mb.on('show', function() {
     console.log('show');
+});
+
+mb.on('after-show', function() {
+    //mb.window.openDevTools();
 });
 
 ipcMain.on('/api/machines', (event, arg) => {
@@ -67,7 +69,7 @@ mb.on('ready', function ready () {
   console.log('app is ready');
 });
 
-app.on('ready', createWindow);
+// app.on('ready', createWindow);
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {

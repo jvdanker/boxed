@@ -3,15 +3,14 @@
         <ul class="table-view">
             <li class="table-view-cell table-view-divider">Processes</li>
             <li class="table-view-cell media" ng-repeat="(key, value) in machines">
-                <a href="/detail/{ {name}}" class="navigate-right">
-                    {{value.name}}
-                    <span class="badge badge-positive">Running</span>
-                </a>
+                {{value.name}}
+                <span ng-if="value.running === true" class="badge badge-positive">Running</span>
+                <span ng-if="value.running === false" class="badge badge-negative">Stopped</span>
             </li>
         </ul>
     </div>
     <div class="bar bar-standard bar-footer">
-        <button class="btn pull-right" on-click="quit">
+        <button class="btn pull-right" on-click="quit()">
             Quit
         </button>
     </div>

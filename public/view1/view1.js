@@ -1,30 +1,34 @@
 'use strict';
 
 const {ipcRenderer} = nodeRequire('electron');
+
 angular.module('myApp.view1', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {
-    templateUrl: 'view1/view1.html',
-    controller: 'View1Ctrl'
-  });
+
+    $routeProvider.when('/view1', {
+        templateUrl: 'view1/view1.html',
+        controller: 'View1Ctrl'
+    });
+
 }])
 
-.controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
+.controller('View1Ctrl', ['$scope', function($scope) {
 
-    $scope.test = 'test';
-
-    ipcRenderer.on('/api/machines', (event, arg) => {
-      console.log('reply from main process', arg);
-
-      $scope.$apply(function () {
-          $scope.machines = arg;
-      });
-    });
     ipcRenderer.send('/api/machines');
+    ipcRenderer.on('/api/machines', (event, arg) => {
+        $scope.$apply(function () {
+            console.log(arg);
+            $scope.machines = arg;
+        });
+    });
+
+    $scope.quit = function() {
+        console.log('quit');
+        alert('akjfd');
+    };
 
 //    $http.get('/api/machines').then(function(data) {
 //        $scope.machines = data.data;
 //    });
-
 }]);
