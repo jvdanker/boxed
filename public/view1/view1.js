@@ -1,5 +1,6 @@
 'use strict';
 
+const {ipcRenderer} = nodeRequire('electron');
 angular.module('myApp.view1', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -13,8 +14,17 @@ angular.module('myApp.view1', ['ngRoute'])
 
     $scope.test = 'test';
 
-    $http.get('/api/machines').then(function(data) {
-        $scope.machines = data.data;
+    ipcRenderer.on('/api/machines', (event, arg) => {
+      console.log('reply from main process', arg);
+
+      $scope.$apply(function () {
+          $scope.machines = arg;
+      });
     });
+    ipcRenderer.send('/api/machines');
+
+//    $http.get('/api/machines').then(function(data) {
+//        $scope.machines = data.data;
+//    });
 
 }]);

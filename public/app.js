@@ -1,7 +1,17 @@
 'use strict';
 
-var e = nodeRequire('electron');
-console.log(e.app);
+//const {ipcRenderer} = nodeRequire('electron');
+//console.log(ipcRenderer);
+//console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
+//
+//ipcRenderer.on('asynchronous-reply', (event, arg) => {
+//  console.log(arg); // prints "pong"
+//});
+//ipcRenderer.send('asynchronous-message', 'ping');
+
+//var e = nodeRequire('electron');
+//console.log(e);
+//console.log(e.app);
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [

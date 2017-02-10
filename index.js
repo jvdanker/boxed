@@ -1,7 +1,8 @@
 const electron = require('electron');
-// Module to control application life.
+const virtualbox = require('virtualbox');
+const {ipcMain} = require('electron');
+
 const app = electron.app;
-// Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
@@ -15,7 +16,8 @@ function createWindow () {
   // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 800,
-        height: 600
+        height: 600,
+        backgroundColor: '#002b36'
     });
 
   // and load the index.html of the app.
@@ -25,18 +27,33 @@ function createWindow () {
     slashes: true
   }));
 
-  // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  // Emitted when the window is closed.
   mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     mainWindow = null
   });
 
 }
+
+ipcMain.on('/api/machines', (event, arg) => {
+  console.log(arg);
+
+  virtualbox.list(function list_callback(machines, error) {
+      // if (error) res.send(error);
+      event.sender.send('/api/machines', machines);
+  });
+
+});
+
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg);  // prints "ping"
+  event.sender.send('asynchronous-reply', 'pong1');
+});
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  console.log(arg) ; // prints "ping"
+  event.returnValue = 'pong2';
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
