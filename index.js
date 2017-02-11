@@ -1,13 +1,16 @@
 const electron = require('electron');
 const virtualbox = require('virtualbox');
-const {ipcMain} = require('electron');
 const menubar = require('menubar')
 const path = require('path');
 const url = require('url');
-const spawn = require('child_process').spawn;
-const {webContents} = require('electron');
 
-const app = electron.app;
+const {ipcMain} = require('electron');
+const {webContents} = require('electron');
+const {app} = require('electron');;
+const {spawn} = require('child_process');
+
+let mainWindow;
+
 const BrowserWindow = electron.BrowserWindow;
 const mb = menubar({
     index: url.format({
@@ -15,9 +18,8 @@ const mb = menubar({
         protocol: 'file:',
         slashes: true
     }),
-    preloadWindow: true});
-
-let mainWindow;
+    preloadWindow: true}
+);
 
 function createWindow () {
     mainWindow = new BrowserWindow({
