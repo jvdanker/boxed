@@ -16,6 +16,7 @@ angular.module('myApp.view1', ['ngRoute'])
 .controller('View1Ctrl', ['$scope', function($scope) {
 
     ipcRenderer.send('/api/machines');
+
     ipcRenderer.on('/api/machines', (event, arg) => {
         $scope.$apply(function () {
             console.log(arg);
@@ -23,9 +24,18 @@ angular.module('myApp.view1', ['ngRoute'])
         });
     });
 
+    ipcRenderer.on('ping', (event, message) => {
+        console.log(message);
+    });
+
     $scope.quit = function() {
-        console.log('quit');
-        alert('akjfd');
+        ipcRenderer.send('/api/quit');
+    };
+
+    $scope.start = function(key) {
+        ipcRenderer.send('/api/start', {
+            key: key
+        });
     };
 
 //    $http.get('/api/machines').then(function(data) {

@@ -4,13 +4,18 @@
             <li class="table-view-cell table-view-divider">Processes</li>
             <li class="table-view-cell media" ng-repeat="(key, value) in machines">
                 {{value.name}}
-                <span ng-if="value.running === true" class="badge badge-positive">Running</span>
-                <span ng-if="value.running === false" class="badge badge-negative">Stopped</span>
+                <span ng-if="value.running === true" class="badge badge-positive">
+                    Running
+                </span>
+                <span ng-if="value.running === false" class="badge badge-negative">
+                    Stopped
+                    <i class="fa fa-play" aria-hidden="true" ng-click="start(key)"></i>
+                </span>
             </li>
         </ul>
     </div>
     <div class="bar bar-standard bar-footer">
-        <button class="btn pull-right" on-click="quit()">
+        <button class="btn pull-right" ng-click="quit()">
             Quit
         </button>
     </div>
