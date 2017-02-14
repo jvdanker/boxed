@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
+    "start": "electron .",
     "postinstall": "bower install",
     "update-deps": "npm update",
     "postupdate-deps": "bower update",
